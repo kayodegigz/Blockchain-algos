@@ -18,7 +18,7 @@ class Trie {
     }
 
     getNodeMatch (node, str, index) {
-        if (str[index] in node.children) {
+        if ((str[index] in node.children) && index < str.length) {
             return this.getNodeMatch(node.children[str[index]], str, (index + 1));
         }
         else {
@@ -56,6 +56,13 @@ class Trie {
 
     isLastChild(str, index) {
         return index === str.length - 1;
+    }
+
+    contains(word) {
+        let strArray = this.getNodeMatch(this.root, word, 0);
+        let remainingStr = strArray[0];
+        let nodeLeft = strArray[1];
+        return !remainingStr && Object.keys(nodeLeft.children).length === 0
     }
 }
 
